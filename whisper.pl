@@ -1,10 +1,7 @@
 #!/usr/bin/env perl
 
 use Mojolicious::Lite;
-use Sys::Hostname;
-use Socket;
 
-state $ip = inet_ntoa( ( gethostbyname(hostname) )[4] );
 state $password = "";
 
 post '/' => sub {
@@ -16,7 +13,7 @@ post '/' => sub {
 get '/' => sub {
     my $c         = shift;
     my $remote_ip = $c->tx->remote_address;
-    if ( $remote_ip eq $ip ) {
+    if ( $remote_ip eq "127.0.0.1" ) {
         $c->render( text => $password );
     }
     else {
